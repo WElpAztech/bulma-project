@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
+<body>
+  <section class="hero is-halfheight is-bold is-primary" style="background-image: url('banner final.jpg'); background-size: cover;">
+  </section>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="#">
+        <img src="file:///C:/Users/Ryan%20Pham/Documents/Bit%20Academy/CSS%20Deep%20dive/Bootstrap-018bebd1-018bebd1/bit%20academy%20logo.svg" width="112" height="28" alt="Bit Academy Logo">
+      </a>
+    </div>
+  </nav>
+
+  <section class="hero is-fullheight">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-one-third">
+            <div class="box">
+              <h2 class="title has-text-centered">Login</h2>
+              <form id="loginForm" onsubmit="redirectUser(event)">
+                <div class="field">
+                  <label class="label">Login als</label>
+                  <div class="control">
+                    <div class="select is-fullwidth">
+                      <select id="userRole" name="userRole">
+                        <option value="leering">leerling</option>
+                        <option value="docent">docent</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Email</label>
+                  <div class="control">
+                    <input class="input" type="text" id="userEmail" name="userEmail" placeholder="Enter your email" required>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Password</label>
+                  <div class="control">
+                    <input class="input" type="password" id="userPassword" name="userPassword" placeholder="Enter your password" required>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="checkbox">
+                    <input type="checkbox" id="rememberMe">
+                    Onthoudt me
+                  </label>
+                </div>
+                <div class="field">
+                  <div class="control">
+                    <input class="button is-primary is-fullwidth" type="submit" value="Login">
+                  </div>
+                </div>
+              </form>
+              <p id="error" class="welp" style="display: none;">Invalid email format. Please enter a valid email.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function redirectUser(event) {
+      event.preventDefault();
+      
+      var userRole = document.getElementById('userRole').value;
+      var userEmail = document.getElementById('userEmail').value;
+      var userPassword = document.getElementById('userPassword').value;
+      var rememberMe = document.getElementById('rememberMe').checked;
+
+      if (!isValidEmail(userEmail) || userPassword.length === 0) {
+        document.getElementById('error').style.display = 'block';
+      } else {
+        if (rememberMe) {
+          localStorage.setItem('userEmail', userEmail);
+          localStorage.setItem('userRole', userRole);
+        }
+
+        if (userRole === 'teacher') {
+          window.location.href = 'docentenpanel.html';
+        } else {
+          window.location.href = 'inschrijven.html';
+        }
+      }
+    }
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+  </script>
+</body>
+</html>
